@@ -1,0 +1,54 @@
+<div class="container mt-5" *ngIf="usuario">
+
+  <h1>Quién Soy</h1>
+
+  <img
+    [src]="usuario.avatar_url"
+    width="200"
+    class="rounded mb-3"
+  >
+
+  <p>
+    <b>Nombre:</b>
+    {{usuario.name}}
+  </p>
+
+  <p>
+    <b>Usuario:</b>
+    {{usuario.login}}
+  </p>
+
+  <p>
+    <b>Seguidores:</b>
+    {{usuario.followers}}
+  </p>
+
+  <hr>
+
+  <h2>Juego Propio</h2>
+
+  <p>
+
+Mi juego propio se llama “Reflejos Matemáticos”.
+
+El juego consiste en resolver operaciones matemáticas
+simples antes de que termine el tiempo límite.
+
+En cada ronda aparecen distintas cuentas:
+sumas, restas o multiplicaciones,
+y el jugador debe seleccionar la respuesta correcta
+entre varias opciones.
+
+A medida que avanza el juego:
+la dificultad aumenta,
+el tiempo disminuye
+y las operaciones se vuelven más complejas.
+
+Elegí este juego porque permite medir:
+la velocidad de reacción,
+la concentración
+y la capacidad de cálculo mental del jugador.
+
+  </p>
+
+</div>
