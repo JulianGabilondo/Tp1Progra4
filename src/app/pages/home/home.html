@@ -1,8 +1,96 @@
-<p>home works!</p>
 <div class="container mt-5">
 
-  <h1>🎮 Sala de Juegos</h1>
+  <div class="text-center">
 
-  <p>Bienvenido a la aplicación.</p>
+    <h1 class="mb-4">
+      🎮 Sala de Juegos
+    </h1>
+
+    <p class="lead">
+      Bienvenido a la plataforma
+    </p>
+
+  </div>
+
+  <hr>
+
+  <!-- SI NO ESTÁ LOGUEADO -->
+
+  <div
+    *ngIf="!usuario"
+    class="text-center"
+  >
+
+    <h3 class="mb-4">
+      Debes iniciar sesión
+    </h3>
+
+    <a
+      routerLink="/login"
+      class="btn btn-primary me-3"
+    >
+      Iniciar Sesión
+    </a>
+
+    <a
+      routerLink="/registro"
+      class="btn btn-success"
+    >
+      Registrarse
+    </a>
+
+  </div>
+
+  <!-- SI ESTÁ LOGUEADO -->
+
+  <div
+    *ngIf="usuario"
+    class="text-center"
+  >
+
+    <h3 class="mb-4">
+      Bienvenido: {{ usuario?.nombre ? usuario.nombre : usuario?.email }}
+    </h3>
+
+    <p *ngIf="usuario?.nombre" class="text-muted mb-4">
+      {{ usuario.email }}
+    </p>
+
+    <button
+      class="btn btn-danger mb-4"
+      (click)="logout()"
+    >
+      Cerrar sesión
+    </button>
+
+    <hr>
+
+    <h2 class="mb-4">
+      Juegos
+    </h2>
+
+    <div class="d-flex justify-content-center">
+
+      <button
+        class="btn btn-warning me-3"
+      >
+        Juego Ahorcado
+      </button>
+
+      <button
+        class="btn btn-info me-3"
+      >
+        Preguntados
+      </button>
+
+      <button
+        class="btn btn-success"
+      >
+        Mi Juego
+      </button>
+
+    </div>
+
+  </div>
 
 </div>

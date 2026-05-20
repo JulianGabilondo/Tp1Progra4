@@ -1,1 +1,77 @@
-<p>login works!</p>
+<div class="container mt-5">
+
+  <h1>Login</h1>
+
+  <input
+    class="form-control mb-3"
+    type="email"
+    placeholder="Email"
+    [(ngModel)]="email"
+  >
+
+  <input
+    class="form-control mb-3"
+    type="password"
+    placeholder="Contraseña"
+    [(ngModel)]="password"
+  >
+
+  <button
+    class="btn btn-primary"
+    (click)="ingresar()"
+  >
+    Ingresar
+  </button>
+
+  <div class="modal-backdrop" *ngIf="modalMensaje">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Error de inicio de sesión</h5>
+          <button type="button" class="btn-close" aria-label="Cerrar" (click)="cerrarModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p>{{ modalMensaje }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <h3>Acceso rápido</h3>
+
+  <button
+    class="btn btn-secondary me-2"
+    (click)="accesoRapido(
+      'test1@test.com',
+      '123456'
+    )"
+  >
+    Usuario 1
+  </button>
+
+  <button
+    class="btn btn-secondary me-2"
+    (click)="accesoRapido(
+      'test2@test.com',
+      '123456'
+    )"
+  >
+    Usuario 2
+  </button>
+
+  <button
+    class="btn btn-secondary"
+    (click)="accesoRapido(
+      'test3@test.com',
+      '123456'
+    )"
+  >
+    Usuario 3
+  </button>
+
+</div>

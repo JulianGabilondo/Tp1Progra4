@@ -1,9 +1,16 @@
 import { Routes } from '@angular/router';
 
-import { Home } from './pages/home/home';
-import { Login } from './pages/login/login';
-import { Registro } from './pages/registro/registro';
-import { QuienSoy } from './pages/quien-soy/quien-soy';
+import { Home }
+from './pages/home/home';
+
+import { Login }
+from './pages/login/login';
+
+import { Registro }
+from './pages/registro/registro';
+
+import { QuienSoy }
+from './pages/quien-soy/quien-soy';
 
 export const routes: Routes = [
 
@@ -15,22 +22,32 @@ export const routes: Routes = [
 
   {
     path: 'home',
-    component: Home
+    component: Home,
+    pathMatch: 'full'
   },
 
   {
     path: 'login',
-    component: Login
+    component: Login,
+    pathMatch: 'full'
   },
 
   {
     path: 'registro',
-    component: Registro
+    component: Registro,
+    pathMatch: 'full'
   },
 
   {
     path: 'quien-soy',
-    component: QuienSoy
+    component: QuienSoy,
+    pathMatch: 'full'
+  },
+
+  {
+    path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full'
   }
 
 ];
