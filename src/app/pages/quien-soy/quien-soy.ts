@@ -4,9 +4,10 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-quien-soy',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './quien-soy.html',
-  styleUrl: './quien-soy.css'
+  styleUrls: ['./quien-soy.css']
 })
 export class QuienSoy {
 
