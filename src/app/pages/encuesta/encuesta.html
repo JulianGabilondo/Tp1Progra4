@@ -1,0 +1,253 @@
+<div class="container mt-4 mb-5">
+
+  <div class="card shadow p-4">
+
+    <h2 class="text-center mb-4">
+
+      Encuesta Sala de Juegos
+
+    </h2>
+
+    <form [formGroup]="encuestaForm">
+
+      <!-- NOMBRE -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+
+          Nombre y apellido
+
+        </label>
+
+        <input
+          type="text"
+          class="form-control"
+          formControlName="nombreApellido">
+
+        <small
+          class="text-danger"
+          *ngIf="
+          encuestaForm
+          .get('nombreApellido')
+          ?.touched
+          &&
+          encuestaForm
+          .get('nombreApellido')
+          ?.invalid">
+
+          Debe ingresar
+          nombre y apellido
+
+        </small>
+
+      </div>
+
+      <!-- EDAD -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+
+          Edad
+
+        </label>
+
+        <input
+          type="number"
+          class="form-control"
+          formControlName="edad">
+
+        <small
+          class="text-danger"
+          *ngIf="
+          encuestaForm
+          .get('edad')
+          ?.touched
+          &&
+          encuestaForm
+          .get('edad')
+          ?.invalid">
+
+          La edad debe estar
+          entre 18 y 99 años
+
+        </small>
+
+      </div>
+
+      <!-- TELEFONO -->
+
+      <div class="mb-3">
+
+        <label class="form-label">
+
+          Teléfono
+
+        </label>
+
+        <input
+          type="text"
+          class="form-control"
+          formControlName="telefono">
+
+        <small
+          class="text-danger"
+          *ngIf="
+          encuestaForm
+          .get('telefono')
+          ?.touched
+          &&
+          encuestaForm
+          .get('telefono')
+          ?.invalid">
+
+          Solo números y máximo
+          10 caracteres
+
+        </small>
+
+      </div>
+
+      <!-- RADIO -->
+
+      <div class="mb-4">
+
+        <label class="form-label">
+
+          ¿Cómo fue tu experiencia?
+
+        </label>
+
+        <div class="form-check">
+
+          <input
+            class="form-check-input"
+            type="radio"
+            value="Excelente"
+            formControlName="experiencia">
+
+          Excelente
+
+        </div>
+
+        <div class="form-check">
+
+          <input
+            class="form-check-input"
+            type="radio"
+            value="Buena"
+            formControlName="experiencia">
+
+          Buena
+
+        </div>
+
+        <div class="form-check">
+
+          <input
+            class="form-check-input"
+            type="radio"
+            value="Mala"
+            formControlName="experiencia">
+
+          Mala
+
+        </div>
+
+      </div>
+
+      <!-- CHECKBOX -->
+
+      <div class="mb-4">
+
+        <label class="form-label">
+
+          Juegos favoritos
+
+        </label>
+
+        <div class="form-check">
+
+          <input
+            type="checkbox"
+            class="form-check-input"
+            value="Ahorcado"
+            (change)="checkboxChange($event)">
+
+          Ahorcado
+
+        </div>
+
+        <div class="form-check">
+
+          <input
+            type="checkbox"
+            class="form-check-input"
+            value="Preguntados"
+            (change)="checkboxChange($event)">
+
+          Preguntados
+
+        </div>
+
+        <div class="form-check">
+
+          <input
+            type="checkbox"
+            class="form-check-input"
+            value="Mayor o Menor"
+            (change)="checkboxChange($event)">
+
+          Mayor o Menor
+
+        </div>
+
+      </div>
+
+      <!-- SELECT -->
+
+      <div class="mb-4">
+
+        <label class="form-label">
+
+          Puntaje de la aplicación
+
+        </label>
+
+        <select
+          class="form-select"
+          formControlName="puntuacionApp">
+
+          <option value="">
+            Seleccionar
+          </option>
+
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+
+        </select>
+
+      </div>
+
+      <div class="d-grid">
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="enviarEncuesta()">
+
+          Enviar Encuesta
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

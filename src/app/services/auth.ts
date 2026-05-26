@@ -153,35 +153,35 @@ export class AuthService {
     return await this.supabase
       .from('ahorcado')
       .select('*')
-      .order('created_at', { ascending: false });
+      //.order('created_at', { ascending: false });
   }
 
   async obtenerResultadosMayorMenor() {
     return await this.supabase
       .from('mayor_menor')
       .select('*')
-      .order('created_at', { ascending: false });
+      //.order('created_at', { ascending: false });
   }
 
   async obtenerResultadosPreguntados() {
     return await this.supabase
       .from('preguntados')
       .select('*')
-      .order('created_at', { ascending: false });
+     // .order('created_at', { ascending: false });
   }
 
   async obtenerResultadosJuegoPropio() {
     return await this.supabase
       .from('juego_propio')
       .select('*')
-      .order('created_at', { ascending: false });
+      //.order('created_at', { ascending: false });
   }
 
   async obtenerMensajes() {
     return await this.supabase
       .from('mensajes')
       .select('*')
-      .order('fecha', { ascending: true });
+      //.order('fecha', { ascending: true });
   }
 
   async enviarMensaje(texto: string, usuario: any) {

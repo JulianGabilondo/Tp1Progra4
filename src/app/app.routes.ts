@@ -28,6 +28,11 @@ import { Resultados } from './pages/resultados/resultados';
 import { AuthGuard } from './guards/auth.guard';
 import { GuestGuard } from './guards/guest.guard';
 
+import { Encuesta } from './pages/encuesta/encuesta';
+import { ResultadosEncuesta } from './pages/resultados-encuesta/resultados-encuesta';
+
+import { adminGuard } from './guards/admin-guard';
+
 export const routes: Routes = [
 
   {
@@ -103,6 +108,20 @@ export const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AuthGuard]
   },
+
+  {
+  path: 'encuesta',
+  component: Encuesta,
+  pathMatch: 'full',
+  canActivate: [AuthGuard]
+},
+
+{
+  path: 'resultados-encuesta',
+  component: ResultadosEncuesta,
+  pathMatch: 'full',
+  canActivate: [AuthGuard]
+},
 
   {
     path: '**',

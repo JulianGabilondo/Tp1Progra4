@@ -1,0 +1,47 @@
+<div class="container mt-4">
+
+  <div class="card shadow p-4">
+
+    <h2 class="mb-4 text-center">
+
+      Resultados Encuestas
+
+    </h2>
+
+    <table
+      class="table table-dark table-striped">
+
+      <thead>
+
+        <tr>
+
+          <th>Nombre</th>
+          <th>Edad</th>
+          <th>Experiencia</th>
+          <th>Puntaje</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let e of encuestas">
+
+          <td>{{e.nombre_apellido}}</td>
+
+          <td>{{e.edad}}</td>
+
+          <td>{{e.experiencia}}</td>
+
+          <td>{{e.puntuacion_app}}</td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

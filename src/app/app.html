@@ -35,6 +35,22 @@
       </ng-container>
 
       <ng-container *ngIf="usuario">
+
+         <a
+    class="btn btn-outline-info"
+    routerLink="/encuesta"
+  >
+    Encuesta
+  </a>
+
+  <a
+    class="btn btn-outline-warning"
+    routerLink="/resultados-encuesta"
+    *ngIf="usuario?.email === 'test1@test.com'"
+  >
+    Resultados Encuesta
+  </a>
+
         <span class="navbar-text text-light">
           {{ usuario.email }}
         </span>
@@ -61,4 +77,13 @@
 
 </nav>
 
-<router-outlet></router-outlet>
+<div
+  [@routeAnimations]="
+  prepareRoute(outlet)"
+>
+
+  <router-outlet
+    #outlet="outlet">
+  </router-outlet>
+
+</div>

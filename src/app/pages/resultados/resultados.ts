@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth';
 
@@ -18,13 +18,22 @@ export class Resultados implements OnInit {
   cargando = true;
   errorMessage: string | null = null;
 
-  constructor(private auth: AuthService) {}
+  constructor(
+    private auth: AuthService,
+    private cdr: ChangeDetectorRef  // Inyectar ChangeDetectorRef
+  ) {}
 
   async ngOnInit() {
+    await this.cargarResultados();
+  }
+
+  async cargarResultados() {
     this.cargando = true;
     this.errorMessage = null;
 
     try {
+      console.log('🚀 Iniciando carga...');
+      
       const [a, m, p, j] = await Promise.all([
         this.auth.obtenerResultadosAhorcado(),
         this.auth.obtenerResultadosMayorMenor(),
@@ -32,24 +41,38 @@ export class Resultados implements OnInit {
         this.auth.obtenerResultadosJuegoPropio()
       ]);
 
-      this.ahorcado = a.data ?? [];
-      this.mayorMenor = m.data ?? [];
-      this.preguntados = p.data ?? [];
-      this.juegoPropio = j.data ?? [];
+      console.log('📦 Respuesta Ahorcado:', a);
+      console.log('📦 Respuesta MayorMenor:', m);
+      console.log('📦 Respuesta Preguntados:', p);
+      console.log('📦 Respuesta JuegoPropio:', j);
 
-      if (a.error || m.error || p.error || j.error) {
-        throw new Error('Error al obtener algunos resultados.');
-      }
+      // Asignar datos
+      this.ahorcado = a?.data || [];
+      this.mayorMenor = m?.data || [];
+      this.preguntados = p?.data || [];
+      this.juegoPropio = j?.data || [];
+
+      console.log('✅ Datos asignados:');
+      console.log('  Ahorcado:', this.ahorcado);
+      console.log('  MayorMenor:', this.mayorMenor);
+      console.log('  Preguntados:', this.preguntados);
+      console.log('  JuegoPropio:', this.juegoPropio);
+      console.log('  Longitudes:', {
+        a: this.ahorcado.length,
+        m: this.mayorMenor.length,
+        p: this.preguntados.length,
+        j: this.juegoPropio.length
+      });
+
+      // Forzar detección de cambios
+      this.cdr.detectChanges();
+
     } catch (error) {
-      console.error('Error cargando resultados:', error);
-      this.errorMessage = 'No se pudieron cargar los resultados. Intenta recargar la página.';
-      this.ahorcado = this.ahorcado ?? [];
-      this.mayorMenor = this.mayorMenor ?? [];
-      this.preguntados = this.preguntados ?? [];
-      this.juegoPropio = this.juegoPropio ?? [];
+      console.error('❌ Error:', error);
+      this.errorMessage = 'Error al cargar resultados.';
     } finally {
       this.cargando = false;
+      this.cdr.detectChanges(); // Forzar otra vez después de cambiar cargando
     }
   }
-
 }

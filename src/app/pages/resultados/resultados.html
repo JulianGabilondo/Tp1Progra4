@@ -1,62 +1,95 @@
 <div class="container mt-4">
   <h1>Resultados</h1>
 
-  <div *ngIf="cargando" class="text-center">Cargando resultados...</div>
+  <div *ngIf="cargando" class="text-center">
+    Cargando resultados...
+  </div>
 
   <div *ngIf="errorMessage" class="alert alert-warning text-center">
     {{ errorMessage }}
   </div>
 
-  <div *ngIf="!cargando">
+  <!-- Debug: Mostrar cantidad de registros -->
+  <div *ngIf="!cargando" class="alert alert-info">
+    <strong>Debug:</strong> 
+    Ahorcado: {{ ahorcado.length }} | 
+    Mayor/Menor: {{ mayorMenor.length }} | 
+    Preguntados: {{ preguntados.length }} | 
+    Juego Propio: {{ juegoPropio.length }}
+  </div>
+
+  <!-- Ahorcado -->
+  <div *ngIf="!cargando && ahorcado.length > 0">
     <h3>Ahorcado</h3>
     <table class="table table-striped">
-      <thead><tr><th>Usuario</th><th>Resultado</th><th>Fecha</th></tr></thead>
+      <thead>
+        <tr><th>Usuario</th><th>Resultado</th><th>Fecha</th></tr>
+      </thead>
       <tbody>
         <tr *ngFor="let r of ahorcado">
-          <td>{{ r.nombre ?? r.email }}</td>
+          <td>{{ r.nombre || r.email || 'Sin nombre' }}</td>
           <td>{{ r.resultado }}</td>
-          <td>{{ r.created_at }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3>Mayor o Menor</h3>
-    <table class="table table-striped">
-      <thead><tr><th>Usuario</th><th>Aciertos</th><th>Fecha</th></tr></thead>
-      <tbody>
-        <tr *ngFor="let r of mayorMenor">
-          <td>{{ r.nombre ?? r.email }}</td>
-          <td>{{ r.aciertos }}</td>
-          <td>{{ r.created_at }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3>Preguntados</h3>
-    <table class="table table-striped">
-      <thead><tr><th>Usuario</th><th>Acertadas</th><th>Total</th><th>Fecha</th></tr></thead>
-      <tbody>
-        <tr *ngFor="let r of preguntados">
-          <td>{{ r.nombre ?? r.email }}</td>
-          <td>{{ r.aciertos }}</td>
-          <td>{{ r.total }}</td>
-          <td>{{ r.created_at }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h3>Juego Propio</h3>
-    <table class="table table-striped">
-      <thead><tr><th>Usuario</th><th>Puntaje</th><th>Tiempo</th><th>Fecha</th></tr></thead>
-      <tbody>
-        <tr *ngFor="let r of juegoPropio">
-          <td>{{ r.nombre ?? r.email }}</td>
-          <td>{{ r.puntaje }}</td>
-          <td>{{ r.tiempo }}</td>
-          <td>{{ r.created_at }}</td>
+          <td>{{ r.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
         </tr>
       </tbody>
     </table>
   </div>
 
+  <!-- Mayor o Menor -->
+  <div *ngIf="!cargando && mayorMenor.length > 0">
+    <h3>Mayor o Menor</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr><th>Usuario</th><th>Aciertos</th><th>Fecha</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of mayorMenor">
+          <td>{{ r.nombre || r.email || 'Sin nombre' }}</td>
+          <td>{{ r.aciertos }}</td>
+          <td>{{ r.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Preguntados -->
+  <div *ngIf="!cargando && preguntados.length > 0">
+    <h3>Preguntados</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr><th>Usuario</th><th>Acertadas</th><th>Total</th><th>Fecha</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of preguntados">
+          <td>{{ r.nombre || r.email || 'Sin nombre' }}</td>
+          <td>{{ r.aciertos }}</td>
+          <td>{{ r.total }}</td>
+          <td>{{ r.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Juego Propio -->
+  <div *ngIf="!cargando && juegoPropio.length > 0">
+    <h3>Juego Propio</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr><th>Usuario</th><th>Puntaje</th><th>Tiempo</th><th>Fecha</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of juegoPropio">
+          <td>{{ r.nombre || r.email || 'Sin nombre' }}</td>
+          <td>{{ r.puntaje }}</td>
+          <td>{{ r.tiempo }}s</td>
+          <td>{{ r.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Mensaje si no hay datos -->
+  <div *ngIf="!cargando && ahorcado.length === 0 && mayorMenor.length === 0 && preguntados.length === 0 && juegoPropio.length === 0" class="alert alert-warning">
+    No hay resultados para mostrar.
+  </div>
 </div>
