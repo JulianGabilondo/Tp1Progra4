@@ -14,10 +14,23 @@
 
   <hr>
 
+  <!-- SI SE ESTÁ CARGANDO -->
+
+  <div
+    *ngIf="cargando"
+    class="text-center"
+  >
+
+    <h3 class="mb-4">
+      Verificando sesión...
+    </h3>
+
+  </div>
+
   <!-- SI NO ESTÁ LOGUEADO -->
 
   <div
-    *ngIf="!usuario"
+    *ngIf="!cargando && !usuario"
     class="text-center"
   >
 
@@ -69,25 +82,13 @@
       Juegos
     </h2>
 
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center flex-wrap gap-3">
 
-      <button
-        class="btn btn-warning me-3"
-      >
-        Juego Ahorcado
-      </button>
+      <a class="btn btn-warning" routerLink="/ahorcado">Juego Ahorcado</a>
 
-      <button
-        class="btn btn-info me-3"
-      >
-        Preguntados
-      </button>
+      <a class="btn btn-info" routerLink="/mayor-menor">Mayor o Menor</a>
 
-      <button
-        class="btn btn-success"
-      >
-        Mi Juego
-      </button>
+      <a class="btn btn-success" routerLink="/chat">Sala de Chat</a>
 
     </div>
 

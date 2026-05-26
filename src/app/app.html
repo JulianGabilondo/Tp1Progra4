@@ -1,20 +1,63 @@
-<nav class="navbar navbar-dark bg-dark p-3">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
 
-  <a class="btn btn-primary me-2" routerLink="/home">
-    Home
-  </a>
+  <div class="container-fluid">
 
-  <a class="btn btn-success me-2" routerLink="/login">
-    Login
-  </a>
+    <a
+      class="navbar-brand"
+      routerLink="/home"
+    >
+      🎮 Sala Juegos
+    </a>
 
-  <a class="btn btn-warning me-2" routerLink="/registro">
-    Registro
-  </a>
+    <div class="d-flex align-items-center gap-2">
 
-  <a class="btn btn-info" routerLink="/quien-soy">
-    Quién Soy
-  </a>
+      <a
+        class="btn btn-outline-light"
+        routerLink="/home"
+      >
+        Home
+      </a>
+
+      <ng-container *ngIf="!usuario">
+        <a
+          class="btn btn-outline-light"
+          routerLink="/login"
+        >
+          Login
+        </a>
+
+        <a
+          class="btn btn-outline-light"
+          routerLink="/registro"
+        >
+          Registro
+        </a>
+      </ng-container>
+
+      <ng-container *ngIf="usuario">
+        <span class="navbar-text text-light">
+          {{ usuario.email }}
+        </span>
+
+        <button
+          class="btn btn-danger"
+          type="button"
+          (click)="logout()"
+        >
+          Cerrar sesión
+        </button>
+      </ng-container>
+
+      <a
+        class="btn btn-warning"
+        routerLink="/quien-soy"
+      >
+        Quién Soy
+      </a>
+
+    </div>
+
+  </div>
 
 </nav>
 

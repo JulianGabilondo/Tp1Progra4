@@ -1,0 +1,61 @@
+<div class="container mt-5">
+
+  <div class="text-center mb-4">
+    <h1>Juego Ahorcado</h1>
+  </div>
+
+  <div *ngIf="cargando" class="text-center">
+    <p class="mb-4">Verificando sesión...</p>
+  </div>
+
+  <div *ngIf="!cargando && !usuario" class="text-center">
+    <a class="btn btn-primary me-2" routerLink="/login">Iniciar sesión</a>
+    <a class="btn btn-success" routerLink="/registro">Registrarse</a>
+  </div>
+
+  <div *ngIf="usuario">
+    <div class="text-center mb-4">
+      <p>Usuario: <strong>{{ usuario?.nombre ? usuario.nombre : usuario?.email }}</strong></p>
+      <p class="text-muted">Selecciona las letras con los botones, no uses el teclado.</p>
+    </div>
+
+    <div class="resultado-juego text-center">
+      <p>Errores: {{ errores }} / {{ maxErrores }}</p>
+      <p>Letras seleccionadas: {{ letrasSeleccionadas }}</p>
+    </div>
+
+    <div class="palabra-container">
+      <span class="palabra-letra" *ngFor="let letra of palabraOculta">{{ letra }}</span>
+    </div>
+
+    <div class="letra-grid">
+      <button
+        class="btn btn-outline-secondary letra-boton"
+        *ngFor="let letra of letras"
+        [disabled]="seleccionadas.includes(letra) || juegoTerminado"
+        (click)="seleccionarLetra(letra)">
+        {{ letra }}
+      </button>
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-success me-2" (click)="iniciarJuego()">Reiniciar</button>
+      <a class="btn btn-primary" routerLink="/home">Volver al inicio</a>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="modalVisible">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>{{ modalMensaje }}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
+          <button class="btn btn-primary" (click)="iniciarJuego(); cerrarModal()">Jugar otra vez</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

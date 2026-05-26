@@ -1,0 +1,69 @@
+<div class="container mt-5">
+
+  <div class="text-center mb-4">
+    <h1>Sala de Chat</h1>
+  </div>
+
+  <div *ngIf="cargando" class="text-center">
+    <p class="mb-4">Verificando sesión...</p>
+  </div>
+
+  <div *ngIf="!cargando">
+    <div class="chat-panel">
+      <div class="chat-header mb-3">
+        <p *ngIf="usuario">Bienvenido, <strong>{{ usuario?.nombre ? usuario.nombre : usuario?.email }}</strong></p>
+        <p *ngIf="!usuario">Sala pública de chat - inicia sesión para enviar mensajes</p>
+      </div>
+
+      <div class="chat-list">
+        <div *ngIf="mensajes?.length === 0" class="text-center text-muted">No hay mensajes aún.</div>
+        <div *ngFor="let mensaje of mensajes" [ngClass]="{'chat-item': true, 'chat-item-self': esPropio(mensaje)}">
+          <div class="chat-bubble">
+            <div class="chat-meta">
+              <span class="chat-user">{{ mensaje.usuario }}</span>
+              <span class="chat-time">{{ formatoHora(mensaje.fecha) }}</span>
+            </div>
+            <div class="chat-text">{{ mensaje.mensaje }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input mt-3">
+        <textarea
+          class="form-control"
+          rows="2"
+          [(ngModel)]="nuevoMensaje"
+          [placeholder]="usuario ? 'Escribe tu mensaje aquí...' : 'Inicia sesión para enviar mensajes...'
+          "
+          [disabled]="!usuario"></textarea>
+        <div class="d-flex justify-content-between mt-2">
+          <div>
+            <a *ngIf="!usuario" class="btn btn-primary me-2" routerLink="/login">Iniciar sesión</a>
+            <a *ngIf="!usuario" class="btn btn-success" routerLink="/registro">Registrarse</a>
+          </div>
+          <div>
+            <button class="btn btn-primary" (click)="enviarMensaje()" [disabled]="!usuario">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a class="btn btn-secondary" routerLink="/home">Volver al inicio</a>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="modalVisible">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>{{ modalMensaje }}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
