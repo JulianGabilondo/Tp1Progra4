@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <h1>Preguntados</h1>
+
+  <div *ngIf="cargando" class="text-center">Cargando preguntas...</div>
+
+  <div *ngIf="!cargando && preguntas.length > 0">
+    <div *ngIf="!terminado">
+      <div class="card mb-3">
+        <div class="card-body">
+          <p class="pregunta">{{ preguntas[index].pregunta }}</p>
+          <div class="opciones">
+            <button class="btn btn-outline-primary w-100 mb-2" *ngFor="let op of preguntas[index].opciones" (click)="seleccionar(op)">{{ op.text }}</button>
+          </div>
+          <p class="mt-2">Pregunta {{ index + 1 }} / {{ preguntas.length }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="terminado" class="text-center">
+      <h3>Partida finalizada</h3>
+      <p>Acertadas: <strong>{{ correctas }}</strong> de {{ preguntas.length }}</p>
+      <div class="d-flex justify-content-center gap-2">
+        <button class="btn btn-primary" (click)="reiniciar()">Jugar otra vez</button>
+        <a class="btn btn-secondary" routerLink="/home">Volver</a>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!cargando && preguntas.length === 0" class="text-center text-muted">
+    No se pudieron cargar preguntas.
+  </div>
++
++  <div *ngIf="errorMessage" class="alert alert-warning mt-3">
++    {{ errorMessage }}
++    <div class="mt-2">
++      <button class="btn btn-sm btn-outline-primary" (click)="cargarPreguntas()">Reintentar</button>
++    </div>
++  </div>
+
+</div>
