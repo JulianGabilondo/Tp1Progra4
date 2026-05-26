@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -26,12 +26,13 @@ export class Chat implements OnInit {
   nuevoMensaje = '';
   modalVisible = false;
   modalMensaje = '';
+  private mensajesSub: any = null;
 
   constructor(
     private auth: AuthService
   ) {
     this.cargarMensajes();
-    this.suscribirseMensajes();
+    this.mensajesSub = this.suscribirseMensajes();
   }
 
   ngOnInit() {
@@ -95,7 +96,7 @@ export class Chat implements OnInit {
 
   suscribirseMensajes() {
     console.log('[Chat] Inicializando suscripción a mensajes realtime');
-    this.auth.suscribirseMensajes((nuevoMensaje: Mensaje) => {
+    return this.auth.suscribirseMensajes((nuevoMensaje: Mensaje) => {
       console.log('[Chat] Realtime callback recibido:', nuevoMensaje);
       if (!nuevoMensaje) {
         return;
@@ -105,6 +106,16 @@ export class Chat implements OnInit {
         this.mensajes = [...this.mensajes, nuevoMensaje];
       }
     });
+  }
+
+  ngOnDestroy() {
+    try {
+      if (this.mensajesSub && typeof this.mensajesSub.unsubscribe === 'function') {
+        this.mensajesSub.unsubscribe();
+      }
+    } catch (e) {
+      console.warn('Error al desuscribir mensajes', e);
+    }
   }
 
   cerrarModal() {

@@ -1,0 +1,27 @@
+<div class="container mt-4">
+  <h1>Reflejos Matemáticos</h1>
+
+  <div *ngIf="!terminado">
+    <div class="card mb-3">
+      <div class="card-body text-center">
+        <p class="h4">¿Cuánto es {{a}} + {{b}} ?</p>
+        <div class="d-grid gap-2 mt-3">
+          <button class="btn btn-outline-primary" *ngFor="let op of opciones" (click)="responder(op)">{{ op }}</button>
+        </div>
+        <p class="mt-3">Puntaje: <strong>{{ puntuacion }}</strong></p>
+        <p class="mt-2">Tiempo restante: <strong>{{ timeLeft }}s</strong></p>
+        <div class="progress mt-1">
+          <div class="progress-bar" role="progressbar" [style.width.%]="progressWidth" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="terminado" class="text-center">
+    <h3>Partida finalizada</h3>
+    <p>Puntaje final: <strong>{{ puntuacion }}</strong></p>
+    <p>Tiempo: <strong>{{ (tiempoFin - tiempoInicio) / 1000 | number:'1.0-1' }}s</strong></p>
+    <a class="btn btn-primary" routerLink="/home">Volver</a>
+  </div>
+
+</div>

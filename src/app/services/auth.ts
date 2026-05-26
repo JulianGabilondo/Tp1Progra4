@@ -137,6 +137,46 @@ export class AuthService {
       .insert(datos);
   }
 
+  async guardarResultadoPreguntados(datos: any) {
+    return await this.supabase
+      .from('preguntados')
+      .insert(datos);
+  }
+
+  async guardarResultadoJuegoPropio(datos: any) {
+    return await this.supabase
+      .from('juego_propio')
+      .insert(datos);
+  }
+
+  async obtenerResultadosAhorcado() {
+    return await this.supabase
+      .from('ahorcado')
+      .select('*')
+      .order('created_at', { ascending: false });
+  }
+
+  async obtenerResultadosMayorMenor() {
+    return await this.supabase
+      .from('mayor_menor')
+      .select('*')
+      .order('created_at', { ascending: false });
+  }
+
+  async obtenerResultadosPreguntados() {
+    return await this.supabase
+      .from('preguntados')
+      .select('*')
+      .order('created_at', { ascending: false });
+  }
+
+  async obtenerResultadosJuegoPropio() {
+    return await this.supabase
+      .from('juego_propio')
+      .select('*')
+      .order('created_at', { ascending: false });
+  }
+
   async obtenerMensajes() {
     return await this.supabase
       .from('mensajes')

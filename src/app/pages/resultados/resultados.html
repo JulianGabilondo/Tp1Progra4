@@ -1,0 +1,62 @@
+<div class="container mt-4">
+  <h1>Resultados</h1>
+
+  <div *ngIf="cargando" class="text-center">Cargando resultados...</div>
+
+  <div *ngIf="errorMessage" class="alert alert-warning text-center">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!cargando">
+    <h3>Ahorcado</h3>
+    <table class="table table-striped">
+      <thead><tr><th>Usuario</th><th>Resultado</th><th>Fecha</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let r of ahorcado">
+          <td>{{ r.nombre ?? r.email }}</td>
+          <td>{{ r.resultado }}</td>
+          <td>{{ r.created_at }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Mayor o Menor</h3>
+    <table class="table table-striped">
+      <thead><tr><th>Usuario</th><th>Aciertos</th><th>Fecha</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let r of mayorMenor">
+          <td>{{ r.nombre ?? r.email }}</td>
+          <td>{{ r.aciertos }}</td>
+          <td>{{ r.created_at }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Preguntados</h3>
+    <table class="table table-striped">
+      <thead><tr><th>Usuario</th><th>Acertadas</th><th>Total</th><th>Fecha</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let r of preguntados">
+          <td>{{ r.nombre ?? r.email }}</td>
+          <td>{{ r.aciertos }}</td>
+          <td>{{ r.total }}</td>
+          <td>{{ r.created_at }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Juego Propio</h3>
+    <table class="table table-striped">
+      <thead><tr><th>Usuario</th><th>Puntaje</th><th>Tiempo</th><th>Fecha</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let r of juegoPropio">
+          <td>{{ r.nombre ?? r.email }}</td>
+          <td>{{ r.puntaje }}</td>
+          <td>{{ r.tiempo }}</td>
+          <td>{{ r.created_at }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

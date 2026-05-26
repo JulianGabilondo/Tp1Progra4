@@ -21,6 +21,10 @@ from './pages/mayor-menor/mayor-menor';
 import { Chat }
 from './pages/chat/chat';
 
+import { Preguntados } from './pages/preguntados/preguntados';
+import { JuegoPropio } from './pages/juego-propio/juego-propio';
+import { Resultados } from './pages/resultados/resultados';
+
 import { AuthGuard } from './guards/auth.guard';
 import { GuestGuard } from './guards/guest.guard';
 
@@ -75,6 +79,27 @@ export const routes: Routes = [
   {
     path: 'chat',
     component: Chat,
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'preguntados',
+    component: Preguntados,
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'juego-propio',
+    component: JuegoPropio,
+    pathMatch: 'full',
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'resultados',
+    component: Resultados,
     pathMatch: 'full',
     canActivate: [AuthGuard]
   },

@@ -16,7 +16,7 @@
       </div>
 
       <div class="chat-list">
-        <div *ngIf="mensajes?.length === 0" class="text-center text-muted">No hay mensajes aún.</div>
+        <div *ngIf="mensajes.length === 0" class="text-center text-muted">No hay mensajes aún.</div>
         <div *ngFor="let mensaje of mensajes" [ngClass]="{'chat-item': true, 'chat-item-self': esPropio(mensaje)}">
           <div class="chat-bubble">
             <div class="chat-meta">

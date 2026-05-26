@@ -42,29 +42,49 @@ export class Registro implements OnInit {
   }
 
   async registrarse() {
+    const email = this.email.trim().toLowerCase();
+    const password = this.password;
 
-    if(!this.nombre || !this.apellido || !this.edad || this.edad <= 0 || !this.email || !this.password){
+    if (!this.nombre || !this.apellido || !this.edad || this.edad <= 0 || !email || !password) {
       this.modalMensaje = 'Por favor complete todos los campos.';
       return;
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      this.modalMensaje = 'El correo electrónico no es válido.';
+      return;
+    }
+
+    if (password.length < 6) {
+      this.modalMensaje = 'La contraseña debe tener al menos 6 caracteres.';
+      return;
+    }
+
     const respuesta = await this.auth.registrar(
-      this.email,
-      this.password
+      email,
+      password
     );
 
-    if(respuesta.error){
+    if (respuesta.error) {
       this.modalMensaje = respuesta.error.message || 'Error al registrar el usuario.';
+      return;
+    }
+
+    const usuario = respuesta.data?.user ?? null;
+    if (!usuario?.id) {
+      this.modalMensaje = 'No se pudo obtener el ID del usuario registrado.';
       return;
     }
 
     const perfil = await this.auth.supabase
       .from('usuarios')
       .insert({
+        id: usuario.id,
         nombre: this.nombre,
         apellido: this.apellido,
         edad: this.edad,
-        email: this.email
+        email
       });
 
     if(perfil.error){
