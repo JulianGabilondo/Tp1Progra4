@@ -61,6 +61,8 @@ export class Registro implements OnInit {
       return;
     }
 
+    console.log(email);
+
     const respuesta = await this.auth.registrar(
       email,
       password
@@ -92,7 +94,7 @@ export class Registro implements OnInit {
       return;
     }
 
-    const loginResp = await this.auth.login(this.email, this.password);
+    const loginResp = await this.auth.login(email, password);
 
     if(loginResp.error){
       this.modalMensaje = loginResp.error.message || 'Error al iniciar sesión después del registro.';
