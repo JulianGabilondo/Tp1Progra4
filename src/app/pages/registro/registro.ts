@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth';
   templateUrl: './registro.html',
   styleUrls: ['./registro.css']
 })
-export class Registro {
+export class Registro implements OnInit {
 
   nombre = '';
   apellido = '';
@@ -30,9 +30,20 @@ export class Registro {
     private router:Router
   ) {}
 
+  ngOnInit() {
+    this.redireccionarSiLogueado();
+  }
+
+  async redireccionarSiLogueado() {
+    const respuesta = await this.auth.usuarioActual();
+    if (respuesta.data?.user) {
+      this.router.navigate(['/home']);
+    }
+  }
+
   async registrarse() {
 
-    if(!this.nombre || !this.apellido || !this.edad || !this.email || !this.password){
+    if(!this.nombre || !this.apellido || !this.edad || this.edad <= 0 || !this.email || !this.password){
       this.modalMensaje = 'Por favor complete todos los campos.';
       return;
     }
@@ -43,7 +54,7 @@ export class Registro {
     );
 
     if(respuesta.error){
-      this.modalMensaje = respuesta.error.message;
+      this.modalMensaje = respuesta.error.message || 'Error al registrar el usuario.';
       return;
     }
 
@@ -57,14 +68,14 @@ export class Registro {
       });
 
     if(perfil.error){
-      this.modalMensaje = perfil.error.message;
+      this.modalMensaje = perfil.error.message || 'Error al guardar el perfil.';
       return;
     }
 
     const loginResp = await this.auth.login(this.email, this.password);
 
     if(loginResp.error){
-      this.modalMensaje = loginResp.error.message;
+      this.modalMensaje = loginResp.error.message || 'Error al iniciar sesión después del registro.';
       return;
     }
 

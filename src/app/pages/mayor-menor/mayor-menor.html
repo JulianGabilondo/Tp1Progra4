@@ -1,0 +1,64 @@
+<div class="container mt-5">
+
+  <div class="text-center mb-4">
+    <h1>Mayor o Menor</h1>
+  </div>
+
+  <div *ngIf="cargando" class="text-center">
+    <p class="mb-4">Verificando sesión...</p>
+  </div>
+
+  <div *ngIf="!cargando && !usuario" class="text-center">
+    <p class="mb-4">Debes iniciar sesión para jugar y almacenar tus resultados.</p>
+    <a class="btn btn-primary me-2" routerLink="/login">Iniciar sesión</a>
+    <a class="btn btn-success" routerLink="/registro">Registrarse</a>
+  </div>
+
+  <div *ngIf="usuario">
+    <div class="text-center mb-4">
+      <p>Usuario: <strong>{{ usuario?.nombre ? usuario.nombre : usuario?.email }}</strong></p>
+      <p class="text-muted">Adivina si la próxima carta será mayor o menor que la actual.</p>
+    </div>
+
+    <div class="carta-actual">
+      <div class="carta-display">{{ cartaActual?.display }}</div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-success me-2" (click)="seleccionarOpcion('mayor')" [disabled]="juegoTerminado">Mayor</button>
+      <button class="btn btn-danger" (click)="seleccionarOpcion('menor')" [disabled]="juegoTerminado">Menor</button>
+    </div>
+
+    <div class="estadisticas mt-4 row text-center">
+      <div class="col-md-4 mb-2">
+        <div class="card p-3">Aciertos<br><strong>{{ aciertos }}</strong></div>
+      </div>
+      <div class="col-md-4 mb-2">
+        <div class="card p-3">Cartas jugadas<br><strong>{{ cartasJugadas }}</strong></div>
+      </div>
+      <div class="col-md-4 mb-2">
+        <div class="card p-3">Cartas restantes<br><strong>{{ cartas.length - indiceActual - 1 }}</strong></div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-secondary me-2" (click)="iniciarJuego()">Reiniciar</button>
+      <a class="btn btn-primary" routerLink="/home">Volver al inicio</a>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="modalVisible">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>{{ modalMensaje }}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
+          <button class="btn btn-primary" (click)="iniciarJuego(); cerrarModal()">Jugar otra vez</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

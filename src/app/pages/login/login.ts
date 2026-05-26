@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth';
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
-export class Login {
+export class Login implements OnInit {
 
   email = '';
   password = '';
@@ -26,6 +26,17 @@ export class Login {
     private router:Router
   ) {}
 
+  ngOnInit() {
+    this.redireccionarSiLogueado();
+  }
+
+  async redireccionarSiLogueado() {
+    const respuesta = await this.auth.usuarioActual();
+    if (respuesta.data?.user) {
+      this.router.navigate(['/home']);
+    }
+  }
+
   async ingresar() {
 
     const respuesta = await this.auth.login(
@@ -34,7 +45,7 @@ export class Login {
     );
 
     if(respuesta.error){
-      this.modalMensaje = respuesta.error.message;
+      this.modalMensaje = respuesta.error.message || 'Error al iniciar sesión.';
       return;
     }
 

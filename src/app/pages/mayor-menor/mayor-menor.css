@@ -1,0 +1,57 @@
+.carta-actual {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.carta-display {
+  width: 180px;
+  height: 220px;
+  background: #ffffff;
+  border: 2px solid #343a40;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #343a40;
+}
+
+.estadisticas .card {
+  min-height: 100px;
+  border: 1px solid #dee2e6;
+  border-radius: 0.75rem;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+.modal-dialog {
+  max-width: 420px;
+  width: 100%;
+}
+
+.modal-content {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+}
